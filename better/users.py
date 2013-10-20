@@ -2,6 +2,7 @@ __author__ = 'skuli'
 
 from twython import Twython, TwythonError
 import sqlite3 as lite
+import time
 from authentication import auth
 
 def putUsersInTable(screenname, twitter):
@@ -11,17 +12,50 @@ def putUsersInTable(screenname, twitter):
 
     twittercursor = None
 
-    response = twitter.get_followers_ids(screen_name = screenname)
+    cur.execute("SELECT * FROM politicians")
+    rows = cur.fetchall()
 
-    while twittercursor:
+    cur = con.cursor()
+
+    for i in rows:
+        while True:
+            try:
+                response = twitter.get_followers_ids(screen_name = i[2])
+                print "retry successful!"
+            except:
+                time.sleep(10)
+                print "retrying..."
+                continue
+            break
+
         twittercursor = response["next_cursor"]
 
-        for i in response["ids"]:
-            cur.execute("INSERT INTO users(twitter_id) VALUES(" + str(i) + ")")
+        while twittercursor:
+            twittercursor = response["next_cursor"]
+
+            for x in response["ids"]:
+                cur.execute("SELECT id FROM users WHERE twitter_id = " + str(x))
+                userid = cur.fetchall()
+                if not userid:
+                    cur.execute("INSERT INTO users(twitter_id) VALUES(" + str(x) + ")")
+                    cur.execute("SELECT id FROM users WHERE twitter_id = " + str(x))
+                    userid = cur.fetchall()
+                    cur.execute("insert into users_politicians (users_id, politicians_id) values (?, ?)",(str(userid[0][0]), str(i[0])))
+                else:
+                    cur.execute("insert into users_politicians (users_id, politicians_id) values (?, ?)",(str(userid[0][0]), str(i[0])))
+
+
+            con.commit()
+            while True:
+                try:
+                    response = twitter.get_followers_ids(screen_name = i[2],cursor = twittercursor)
+                    print "retry successful!"
+                except:
+                    time.sleep(10)
+                    print "retrying..."
+                    continue
+                break
 
         con.commit()
-        response = twitter.get_followers_ids(screen_name = screenname,cursor = twittercursor)
-
-    con.commit()
 
     con.close()
