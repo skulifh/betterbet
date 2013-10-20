@@ -20,26 +20,21 @@ def statuses():
     con = None
 
 
-    con = lite.connect('testy.db')
+    con = lite.connect('../test.db')
     cur = con.cursor()
 
     #con = lite.connect('testy.db')
     #
     #with con:
     #    cur = con.cursor()
-    cur.execute("SELECT * FROM Users")
+    cur.execute("SELECT * FROM users")
 
     rows = cur.fetchall()
+    print rows
 
-    for ids in rows:
-        idlist.append(ids)
-        print "LOLOLOL" + str(ids)
-
-    for IDs in idlist:
+    for IDs in rows:
         try:
-            print str(IDs)
-            print '1338597481'
-            user_timeline = twitter.get_user_timeline(id=repr(IDs), count=10)
+            user_timeline = twitter.get_user_timeline(id=str(IDs[1]), count=10)
         except TwythonError as e:
             print e
 
@@ -94,3 +89,5 @@ def statuses():
     #print len(wordslist)
     print "TRUE = " + str(CorrectCounter)
     print "FALSE = " + str(IncorrectCounter)
+
+statuses()
