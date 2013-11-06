@@ -1,11 +1,12 @@
 __author__ = 'skuli'
 from twython import Twython, TwythonError
 import sqlite3 as lite
-from users import putUsersInTable
+from users import putUsersInTable, sortUsers
 from authentication import auth
 
 twitter = auth()
-putUsersInTable(twitter)
+#putUsersInTable(twitter)
+sortUsers(2, 2)
 
 
 

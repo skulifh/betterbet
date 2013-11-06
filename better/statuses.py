@@ -19,7 +19,7 @@ def statuses():
     con = None
     con = lite.connect('../test.db')
     cur = con.cursor()
-    cur.execute("SELECT * FROM users") #Get the users that are democrats or republic
+    cur.execute("SELECT * FROM final_users") #Get the users that are democrats or republic
 
     rows = cur.fetchall()
 

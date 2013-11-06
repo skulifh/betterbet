@@ -4,14 +4,43 @@ from twython import Twython, TwythonError
 import sqlite3 as lite
 import time
 from authentication import auth
-#def sortUsers():
-#    con = None
-#    con = lite.connect('../test.db')
-#    cur = con.cursor()
-#
-#    cur.execute("SELECT * FROM users")
-#    users = cur.fetchall()
-#    for u in users:
+
+
+def hugeSqlCommand(minFriendlyFollowing, maxOpponentFollowing, Friendlyparty, OpponentParty):
+    con = None
+    con = lite.connect('../test.db')
+    cur = con.cursor()
+
+    cur.execute("SELECT users_following_politicians.users_id "
+                "FROM users_following_politicians "
+                "INNER JOIN politicians "
+                "ON users_following_politicians.politicians_id = politicians.id "
+                "WHERE politicians.party = '" + Friendlyparty + "' "
+                "GROUP BY users_following_politicians.users_id "
+                "HAVING (COUNT(users_following_politicians.users_id) > " + str(minFriendlyFollowing) + ") "
+                "INTERSECT "
+                "SELECT users_following_politicians.users_id "
+                "FROM users_following_politicians "
+                "INNER JOIN politicians "
+                "ON users_following_politicians.politicians_id = politicians.id "
+                "WHERE politicians.party = '" + OpponentParty + "' "
+                "GROUP BY users_following_politicians.users_id "
+                "HAVING (COUNT(users_following_politicians.users_id) < " + str(maxOpponentFollowing) + ");")
+
+    users = cur.fetchall()
+    cur2 = con.cursor()
+
+    for u in users:
+        print u[0]
+        cur2.execute("insert into final_users (users_id, party) values (?, ?)",(u[0], Friendlyparty))
+
+    con.commit()
+
+
+def sortUsers(minFriendlyFollowing, maxOpponentFollowing):
+
+    hugeSqlCommand(minFriendlyFollowing, maxOpponentFollowing, 'R', 'D')
+    hugeSqlCommand(minFriendlyFollowing, maxOpponentFollowing, 'D', 'R')
 
 
 def putUsersInTable(twitter):
