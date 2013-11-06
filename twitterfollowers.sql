@@ -17,7 +17,7 @@ CREATE TABLE politicians(
 	PRIMARY KEY (id)
 );
 
-CREATE TABLE users_politicians(
+CREATE TABLE users_following_politicians(
 	id INTEGER,
 	users_id INTEGER,
 	politicians_id INTEGER,
@@ -25,6 +25,40 @@ CREATE TABLE users_politicians(
 	FOREIGN KEY (users_id) REFERENCES users(id),
 	FOREIGN KEY (politicians_id) REFERENCES politicians(id)
 );
+
+CREATE TABLE users_following_count(
+	id INTEGER,
+	users_id INTEGER,
+	follow_count INTEGER,
+	party STRING,
+	PRIMARY KEY (id),
+	FOREIGN KEY (users_id) REFERENCES users(id)
+);
+
+CREATE TABLE statuses(
+	id INTEGER,
+	users_id INTEGER,
+	statuses STRING,
+	PRIMARY KEY(id),
+	FOREIGN KEY(users_id) REFERENCES users(id)
+);
+
+CREATE TABLE final_users(
+	id INTEGER,
+	users_id INTEGER,
+	party STRING,
+	PRIMARY KEY(id),
+	FOREIGN KEY(users_id) REFERENCES users(id)
+);
+
+CREATE TABLE results(
+	party String
+	correct integer,
+	incorrect integer,
+);
+
+
+	
 
 .separator ","
 .import candidates.csv politicians
