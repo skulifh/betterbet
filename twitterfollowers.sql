@@ -60,7 +60,7 @@ CREATE TABLE final_users(
 CREATE TABLE results(
 	party String,
 	correct integer,
-	incorrect integer,
+	incorrect integer
 );
 
 
