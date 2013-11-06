@@ -3,6 +3,7 @@ __author__ = 'skuli'
 from twython import Twython, TwythonError
 import sqlite3 as lite
 import time
+import logging
 from authentication import auth
 
 
@@ -10,6 +11,8 @@ def hugeSqlCommand(minFriendlyFollowing, maxOpponentFollowing, Friendlyparty, Op
     con = None
     con = lite.connect('../test.db')
     cur = con.cursor()
+    #global console
+    logging.info('JA!')
 
     cur.execute("SELECT users_following_politicians.users_id "
                 "FROM users_following_politicians "
@@ -31,7 +34,6 @@ def hugeSqlCommand(minFriendlyFollowing, maxOpponentFollowing, Friendlyparty, Op
     cur2 = con.cursor()
 
     for u in users:
-        print u[0]
         cur2.execute("insert into final_users (users_id, party) values (?, ?)",(u[0], Friendlyparty))
 
     con.commit()
@@ -59,10 +61,10 @@ def putUsersInTable(twitter):
         while True:
             try:
                 response = twitter.get_followers_ids(screen_name = i[2])
-                print "retry successful!"
+                logging.info('retry successful!')
             except:
                 time.sleep(10)
-                print "retrying..."
+                logging.info('retrying...')
                 continue
             break
 
@@ -87,10 +89,10 @@ def putUsersInTable(twitter):
             while True:
                 try:
                     response = twitter.get_followers_ids(screen_name = i[2],cursor = twittercursor)
-                    print "retry successful!"
+                    logging.info('retry successful!')
                 except:
                     time.sleep(10)
-                    print "retrying..."
+                    logging.info('retrying...')
                     continue
                 break
 
