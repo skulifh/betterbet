@@ -21,13 +21,14 @@ console.setFormatter(formatter)
 # add the handler to the root logger
 logging.getLogger('').addHandler(console)
 
-logging.info('Jackdaws love my big sphinx of quartz.')
+logging.info('Starting')
 
 
 twitter = auth()
-putUsersInTable(twitter)
+#putUsersInTable(twitter)
 sortUsers(2, 2)
 
+logging.info('Finished')
 
 
 #followids1 = twitter.get_followers_ids(screen_name='HillaryClinton')
