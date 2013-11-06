@@ -5,7 +5,10 @@ from users import putUsersInTable
 from authentication import auth
 
 twitter = auth()
-putUsersInTable("GovPeterShumlin",twitter)
+putUsersInTable(twitter)
+
+
+
 #followids1 = twitter.get_followers_ids(screen_name='HillaryClinton')
 #response = twitter.get_followers_ids(screen_name = "HillaryClinton")
 

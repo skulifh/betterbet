@@ -4,8 +4,17 @@ from twython import Twython, TwythonError
 import sqlite3 as lite
 import time
 from authentication import auth
+#def sortUsers():
+#    con = None
+#    con = lite.connect('../test.db')
+#    cur = con.cursor()
+#
+#    cur.execute("SELECT * FROM users")
+#    users = cur.fetchall()
+#    for u in users:
 
-def putUsersInTable(screenname, twitter):
+
+def putUsersInTable(twitter):
     con = None
     con = lite.connect('../test.db')
     cur = con.cursor()
@@ -40,9 +49,9 @@ def putUsersInTable(screenname, twitter):
                     cur.execute("INSERT INTO users(twitter_id) VALUES(" + str(x) + ")")
                     cur.execute("SELECT id FROM users WHERE twitter_id = " + str(x))
                     userid = cur.fetchall()
-                    cur.execute("insert into users_politicians (users_id, politicians_id) values (?, ?)",(str(userid[0][0]), str(i[0])))
+                    cur.execute("insert into users_following_politicians (users_id, politicians_id) values (?, ?)",(str(userid[0][0]), str(i[0])))
                 else:
-                    cur.execute("insert into users_politicians (users_id, politicians_id) values (?, ?)",(str(userid[0][0]), str(i[0])))
+                    cur.execute("insert into users_following_politicians (users_id, politicians_id) values (?, ?)",(str(userid[0][0]), str(i[0])))
 
 
             con.commit()
