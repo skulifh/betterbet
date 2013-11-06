@@ -28,7 +28,8 @@ def statuses():
         lineslist[:] = []
         wordslist[:] = []
         try:
-            user_timeline = twitter.get_user_timeline(id=str(IDs[1]), count=10)
+            cur.execute("SELECT twitter_id FROM users where id = " + str(IDs[1]) + ";")
+            user_timeline = twitter.get_user_timeline(id=str(cur.fetchall()[0][0]), count=10)
         except TwythonError as e:
             print e
 
