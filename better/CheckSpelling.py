@@ -9,6 +9,7 @@ def SpellChecker():
     con = None
     con = lite.connect('../test.db')
     cur = con.cursor()
+    cur2 = con.cursor()
     lineslist = []
     wordslist = []
     party = "D" #Iniitializing the party as D
@@ -23,7 +24,7 @@ def SpellChecker():
 
     while StopOuterLoop != 1:
 
-        cur.execute("select words.statuses from words,final_users where words.id = final_users.users_id and final_users.party = ?", (party,)) #get statuses from 1000 D and 1000 R
+        cur.execute("select statuses.statuses from statuses,final_users where statuses.id = final_users.users_id and final_users.party = ?", (party,)) #get statuses from 1000 D and 1000 R
 
         while True:
 
@@ -78,3 +79,6 @@ def SpellChecker():
     print "DIncorrectCounter = " + str(DIncorrectCounter)
     print "RCorrectCounter = " + str(RCorrectCounter)
     print "RIncorrectCounter = " + str(RIncorrectCounter)
+
+    #cur2.execute("INSERT INTO results(party,correct,incorrect) VALUES(?,?,?)", ('D',DCorrectCounter,DIncorrectCounter));
+    #cur2.execute("INSERT INTO results(party,correct,incorrect) VALUES(?,?,?)", ('R',RCorrectCounter,RIncorrectCounter));
