@@ -57,6 +57,6 @@ def checklang():
 
         con.commit()
     con.close()
+    SpellChecker()
 
 checklang()
-SpellChecker()
