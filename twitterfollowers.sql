@@ -1,6 +1,12 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS politicians;
-DROP TABLE IF EXISTS users_politicians;
+DROP TABLE IF EXISTS users_following_politicians;
+DROP TABLE IF EXISTS users_following_count;
+DROP TABLE IF EXISTS statuses;
+DROP TABLE IF EXISTS final_users;
+DROP TABLE IF EXISTS results;
+
+
 
 CREATE TABLE users(
 	id INTEGER,
@@ -52,7 +58,7 @@ CREATE TABLE final_users(
 );
 
 CREATE TABLE results(
-	party String
+	party String,
 	correct integer,
 	incorrect integer,
 );
