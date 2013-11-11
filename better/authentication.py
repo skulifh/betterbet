@@ -26,6 +26,6 @@ def auth():
     OAUTH_TOKEN4 = '2187937866-Vn4TCGqEfzSzQ5w5ZLlVS0WP07QhOlgjfLclhG6'
     OAUTH_TOKEN_SECRET4 = 'WivD28HQwbncHw1SGcFKKEtHbVPXgFdIGEiuSpWGsOGdM'
 
-    twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN
-        , OAUTH_TOKEN_SECRET)
+    twitter = Twython(APP_KEY3, APP_SECRET3, OAUTH_TOKEN3
+        , OAUTH_TOKEN_SECRET3)
     return twitter

@@ -63,8 +63,8 @@ def putUsersInTable(twitter):
                 response = twitter.get_followers_ids(screen_name = i[2])
                 logging.info('retry successful!')
             except:
-                time.sleep(10)
                 logging.info('retrying...')
+                time.sleep(60)
                 continue
             break
 
@@ -91,8 +91,8 @@ def putUsersInTable(twitter):
                     response = twitter.get_followers_ids(screen_name = i[2],cursor = twittercursor)
                     logging.info('retry successful!')
                 except:
-                    time.sleep(60)
                     logging.info('retrying...')
+                    time.sleep(60)
                     continue
                 break
 
