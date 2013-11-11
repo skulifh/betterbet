@@ -6,7 +6,7 @@ from users import putUsersInTable, sortUsers
 from authentication import auth
 
 # set up logging to file - see previous section for more details
-logging.basicConfig(level=logging.DEBUG,
+logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
                     datefmt='%m-%d %H:%M',
                     filename='./myapp.log',
@@ -25,7 +25,7 @@ logging.info('Starting')
 
 
 twitter = auth()
-#putUsersInTable(twitter)
+putUsersInTable(twitter)
 sortUsers(2, 2)
 
 logging.info('Finished')

@@ -20,6 +20,12 @@ def auth():
     OAUTH_TOKEN3 = '323813109-MPDpGNtJxtugv0F1Um3bT3V7dfgty71VyWVfhABt'
     OAUTH_TOKEN_SECRET3 = 'XauF4si2geyCrAaJ1rko1gw8bQfHWgLoCdLQn43iE'
 
+    #Nyjasta fra Skula
+    APP_KEY4 = 'VOWM6G4i8rtFktRlgHbIwg'
+    APP_SECRET4 = 'tLoBHWrUAPknkzIWq9F1l51f3vZe3MU5JAfNNCK4'
+    OAUTH_TOKEN4 = '2187937866-Vn4TCGqEfzSzQ5w5ZLlVS0WP07QhOlgjfLclhG6'
+    OAUTH_TOKEN_SECRET4 = 'WivD28HQwbncHw1SGcFKKEtHbVPXgFdIGEiuSpWGsOGdM'
+
     twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN
         , OAUTH_TOKEN_SECRET)
     return twitter
