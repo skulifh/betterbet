@@ -12,23 +12,22 @@ def hugeSqlCommand(minFriendlyFollowing, maxOpponentFollowing, Friendlyparty, Op
     con = lite.connect('../test.db')
     cur = con.cursor()
     #global console
-    logging.info('JA!')
 
-    cur.execute("SELECT users_following_politicians.users_id "
+    cur.execute("SELECT users_following_politicians.twitter_id "
                 "FROM users_following_politicians "
                 "INNER JOIN politicians "
                 "ON users_following_politicians.politicians_id = politicians.id "
                 "WHERE politicians.party = '" + Friendlyparty + "' "
-                "GROUP BY users_following_politicians.users_id "
-                "HAVING (COUNT(users_following_politicians.users_id) > " + str(minFriendlyFollowing) + ") "
+                "GROUP BY users_following_politicians.twitter_id "
+                "HAVING (COUNT(users_following_politicians.twitter_id) > " + str(minFriendlyFollowing) + ") "
                 "INTERSECT "
-                "SELECT users_following_politicians.users_id "
+                "SELECT users_following_politicians.twitter_id "
                 "FROM users_following_politicians "
                 "INNER JOIN politicians "
                 "ON users_following_politicians.politicians_id = politicians.id "
                 "WHERE politicians.party = '" + OpponentParty + "' "
-                "GROUP BY users_following_politicians.users_id "
-                "HAVING (COUNT(users_following_politicians.users_id) < " + str(maxOpponentFollowing) + ");")
+                "GROUP BY users_following_politicians.twitter_id "
+                "HAVING (COUNT(users_following_politicians.twitter_id) < " + str(maxOpponentFollowing) + ");")
 
     users = cur.fetchall()
     cur2 = con.cursor()

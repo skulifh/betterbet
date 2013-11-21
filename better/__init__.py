@@ -26,7 +26,7 @@ logging.info('Starting')
 
 twitter = auth()
 putUsersInTable(twitter)
-sortUsers(2, 2)
+#sortUsers(2, 2)
 
 logging.info('Finished')
 
