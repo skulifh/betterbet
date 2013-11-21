@@ -71,9 +71,7 @@ def putUsersInTable(twitter):
         twittercursor = response["next_cursor"]
 
         while twittercursor:
-            #twittercursor = response["next_cursor"]
-            #bla = [('fds'),('fsda')]
-            #cur.executemany('insert into users_following_politicians (users_id) values ("?")', bla)
+            twittercursor = response["next_cursor"]
 
             #for x in response["ids"]:
             #    cur.execute("SELECT id FROM users WHERE twitter_id = " + str(x))
@@ -105,6 +103,11 @@ def putUsersInTable(twitter):
 
     cur.execute("SELECT DISTINCT twitter_id FROM users_following_politicians")
     userid = cur.fetchall()
-    print userid
+    cur = con.cursor()
+
+    for y in userid:
+        cur.execute("insert into users (id) values (?)",(str(y[0]),))
+
+    con.commit()
 
     con.close()
