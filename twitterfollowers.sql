@@ -55,6 +55,14 @@ CREATE TABLE final_users(
 	FOREIGN KEY(users_id) REFERENCES users(id)
 );
 
+CREATE TABLE final_users_en(
+	id INTEGER,
+	users_id INTEGER,
+	party STRING,
+	PRIMARY KEY(id),
+	FOREIGN KEY(users_id) REFERENCES users(id)
+);
+
 CREATE TABLE results(
 	party String,
 	correct integer,

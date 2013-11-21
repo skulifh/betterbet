@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+from better.CheckSpelling import SpellChecker
+from better.languagechecker import checklang
+
 __author__ = 'Asgeir'
 
 from twython import Twython, TwythonError
@@ -10,26 +13,47 @@ import re
 
 def statuses():
 
+
+    DesiredR = 100 #The number of English speaking Democrats desired
+    DesiredD = 100 #The number of English speaking Republicans desired
+
     dict = enchant.Dict("en_US")
     twitter = auth()
 
     lineslist = [] #list for all the lines in the txt file
     wordslist = [] #list for all the words in the txt file
 
+    Dcount = 0
+    Rcount = 0
+
     con = None
     con = lite.connect('../test.db')
     cur = con.cursor()
-    cur.execute("SELECT * FROM final_users") #Get the users that are democrats or republic
+    cur.execute("SELECT users_id, party FROM final_users")
 
     rows = cur.fetchall()
 
+    print rows
+
     for IDs in rows:
+
+        party = IDs[1]
+        if party == "D" and Dcount >= DesiredD:
+            continue
+        if party == "R" and Rcount >= DesiredR:
+            continue
+
+        if Dcount == "D" and Rcount == "R":
+            print "Done!"
+            SpellChecker()
+            break
 
         lineslist[:] = []
         wordslist[:] = []
         try:
-            cur.execute("SELECT twitter_id FROM users where id = " + str(IDs[1]) + ";")
-            user_timeline = twitter.get_user_timeline(id=str(cur.fetchall()[0][0]), count=10)
+            print str(IDs[0])
+            user_timeline = twitter.get_user_timeline(id=str(IDs[0]), count=10)
+            print user_timeline
         except TwythonError as e:
             print e
 
@@ -69,10 +93,18 @@ def statuses():
         liststr = ""
         for word in wordslist:
             liststr += word + " "
+        print "HOHOHO" + liststr
+      #  wordsindb(IDs, liststr)
+        print "PARTY " + str(IDs[1])
+        partycounter = checklang(IDs[0], liststr, IDs[1])
 
-        wordsindb(IDs, liststr)
+        if partycounter == "D":
+            Dcount += 1
+        elif partycounter == "R":
+            Rcount += 1
 
-
+        if partycounter == "R" or partycounter == "D":
+            wordsindb(IDs, liststr)
 
 
 statuses()
