@@ -10,7 +10,6 @@ DROP TABLE IF EXISTS results;
 
 CREATE TABLE users(
 	id INTEGER,
-	twitter_id INTEGER,
 	PRIMARY KEY (id)
 );
 
@@ -25,10 +24,9 @@ CREATE TABLE politicians(
 
 CREATE TABLE users_following_politicians(
 	id INTEGER,
-	users_id INTEGER,
+	twitter_id INTEGER,
 	politicians_id INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY (users_id) REFERENCES users(id),
 	FOREIGN KEY (politicians_id) REFERENCES politicians(id)
 );
 
