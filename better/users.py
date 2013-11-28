@@ -19,7 +19,7 @@ def hugeSqlCommand(minFriendlyFollowing, maxOpponentFollowing, Friendlyparty, Op
                 "ON users_following_politicians.politicians_id = politicians.id "
                 "WHERE politicians.party = '" + Friendlyparty + "' "
                 "GROUP BY users_following_politicians.twitter_id "
-                "HAVING (COUNT(users_following_politicians.twitter_id) > " + str(minFriendlyFollowing) + ") "
+                "HAVING (COUNT(users_following_politicians.twitter_id) >= " + str(minFriendlyFollowing) + ") "
                 "INTERSECT "
                 "SELECT users_following_politicians.twitter_id "
                 "FROM users_following_politicians "
@@ -27,7 +27,7 @@ def hugeSqlCommand(minFriendlyFollowing, maxOpponentFollowing, Friendlyparty, Op
                 "ON users_following_politicians.politicians_id = politicians.id "
                 "WHERE politicians.party = '" + OpponentParty + "' "
                 "GROUP BY users_following_politicians.twitter_id "
-                "HAVING (COUNT(users_following_politicians.twitter_id) < " + str(maxOpponentFollowing) + ");")
+                "HAVING (COUNT(users_following_politicians.twitter_id) <= " + str(maxOpponentFollowing) + ");")
 
     users = cur.fetchall()
     cur2 = con.cursor()
@@ -85,7 +85,7 @@ def putUsersInTable(twitter):
             #        cur.execute("insert into users_following_politicians (users_id, politicians_id) values (?, ?)",(str(userid[0][0]), str(i[0])))
 
             for x in response["ids"]:
-                cur.execute("insert into users_following_politicians (twitter_id, politicians_id) values (?, ?)",(str(x), str(i[0])))
+                cur.execute("insert into users_following_politicians (twitter_id, politicians_id, party) values (?, ?)",(str(x), str(i[0])))
 
             con.commit()
             while True:

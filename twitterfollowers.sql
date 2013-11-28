@@ -26,6 +26,7 @@ CREATE TABLE users_following_politicians(
 	id INTEGER,
 	twitter_id INTEGER,
 	politicians_id INTEGER,
+	party STRING,
 	PRIMARY KEY (id),
 	FOREIGN KEY (politicians_id) REFERENCES politicians(id)
 );
@@ -69,7 +70,12 @@ CREATE TABLE results(
 	incorrect integer
 );
 
-
+/*
+SELECT twitter_id
+FROM users_following
+GROUP BY twitter_id
+HAVING COUNT(twitter_id) >= 1 AND party = 'D'
+*/
 	
 
 .separator ","
