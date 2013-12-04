@@ -14,29 +14,25 @@ def SpellChecker():
     wordslist = []
     party = "D" #Iniitializing the party as D
 
-    CorrectCounter = 0
-    IncorrectCounter = 0
     DCorrectCounter = 0
     DIncorrectCounter = 0
     RCorrectCounter = 0
     RIncorrectCounter = 0
 
 
-    cur.execute("select statuses.statuses from statuses,final_users_en where statuses.users_id = final_users_en.users_id and final_users_en.party = ?", (party,)) #get statuses from 1000 D and 1000 R
-
-
-    lineslist[:] = []
-    wordslist[:] = []
-
-
+    cur.execute("select statuses.statuses, final_users_en.party from statuses,final_users_en where statuses.users_id = final_users_en.users_id") #get statuses from 1000 D and 1000 R
 
     while True:
+        print "HOHO"
+        lineslist[:] = []
+        wordslist[:] = []
         row = cur.fetchone()
 
         if row == None:
             break
 
         status = row[0]
+        party = row[1]
         lineslist.append(status)
         print "STATUS: " + str(status)
 
@@ -53,10 +49,16 @@ def SpellChecker():
             spellcheck = dict.check(wordslist[k])
             spellcheck = str(spellcheck)
        #     print spellcheck
-            if spellcheck is "True":
-                CorrectCounter += 1
-            elif spellcheck is "False":
-                IncorrectCounter += 1
+            if spellcheck == "True":
+                if party == "D":
+                    DCorrectCounter += 1
+                elif party == "R":
+                    RCorrectCounter += 1
+            elif spellcheck == "False":
+                 if party == "D":
+                    DIncorrectCounter += 1
+                 elif party == "R":
+                    RIncorrectCounter += 1
             else:
                 print spellcheck + " SOMETHING IS WRONG!" #Debug purposes
 
