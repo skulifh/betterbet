@@ -13,7 +13,6 @@ def SpellChecker():
     lineslist = []
     wordslist = []
     party = "D" #Iniitializing the party as D
-    StopOuterLoop = 0
 
     CorrectCounter = 0
     IncorrectCounter = 0
@@ -22,58 +21,44 @@ def SpellChecker():
     RCorrectCounter = 0
     RIncorrectCounter = 0
 
-    while StopOuterLoop != 1:
 
-        cur.execute("select statuses.statuses from statuses,final_users_en where statuses.users_id = final_users_en.users_id and final_users_en.party = ?", (party,)) #get statuses from 1000 D and 1000 R
-
-        while True:
-
-            lineslist[:] = []
-            wordslist[:] = []
-
-            row = cur.fetchone()
-            print row
-            #
-            #if row == None:
-            #    if party == "D":
-            #        party = "R"
-            #        DCorrectCounter = CorrectCounter
-            #        DIncorrectCounter = IncorrectCounter
-            #        CorrectCounter = 0
-            #        IncorrectCounter = 0
-            #        break
-            #    elif party == "R":
-            #        StopOuterLoop = 1
-            #        RCorrectCounter = CorrectCounter
-            #        RIncorrectCounter = IncorrectCounter
-            #        CorrectCounter = 0
-            #        IncorrectCounter = 0
-            #        break
+    cur.execute("select statuses.statuses from statuses,final_users_en where statuses.users_id = final_users_en.users_id and final_users_en.party = ?", (party,)) #get statuses from 1000 D and 1000 R
 
 
-            statuses = row[0]
-
-            lineslist.append(statuses)
-
-            for i in range(len(lineslist)): #loop through all the lines in the list
-                words = lineslist[i].split() #acquire all the words in the line in a list
-
-                for j in range(len(words)): #loop through the word list to add them to another list
-                    if words[j].find("...") <= 0:
-                        wordslist.append(words[j])
+    lineslist[:] = []
+    wordslist[:] = []
 
 
-            for k in range(len(wordslist)-1):
-          #      print wordslist[k]
-                spellcheck = dict.check(wordslist[k])
-                spellcheck = str(spellcheck)
-           #     print spellcheck
-                if spellcheck is "True":
-                    CorrectCounter += 1
-                elif spellcheck is "False":
-                    IncorrectCounter += 1
-                else:
-                    print spellcheck + " SOMETHING IS WRONG!" #Debug purposes
+
+    while True:
+        row = cur.fetchone()
+
+        if row == None:
+            break
+
+        status = row[0]
+        lineslist.append(status)
+        print "STATUS: " + str(status)
+
+        for i in range(len(lineslist)): #loop through all the lines in the list
+            words = lineslist[i].split() #acquire all the words in the line in a list
+
+            for j in range(len(words)): #loop through the word list to add them to another list
+                if words[j].find("...") <= 0:
+                    wordslist.append(words[j])
+
+
+        for k in range(len(wordslist)-1):
+      #      print wordslist[k]
+            spellcheck = dict.check(wordslist[k])
+            spellcheck = str(spellcheck)
+       #     print spellcheck
+            if spellcheck is "True":
+                CorrectCounter += 1
+            elif spellcheck is "False":
+                IncorrectCounter += 1
+            else:
+                print spellcheck + " SOMETHING IS WRONG!" #Debug purposes
 
 
     print "DCorrectCounter = " + str(DCorrectCounter)
