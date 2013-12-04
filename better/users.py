@@ -85,7 +85,7 @@ def putUsersInTable(twitter):
             #        cur.execute("insert into users_following_politicians (users_id, politicians_id) values (?, ?)",(str(userid[0][0]), str(i[0])))
 
             for x in response["ids"]:
-                cur.execute("insert into users_following_politicians (twitter_id, politicians_id, party) values (?, ?)",(str(x), str(i[0])))
+                cur.execute("insert into users_following_politicians (twitter_id, politicians_id, party) values (?, ?, ?)",(str(x), str(i[0]), str(i[3])))
 
             con.commit()
             while True:

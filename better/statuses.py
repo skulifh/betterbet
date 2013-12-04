@@ -15,7 +15,6 @@ def statuses(twitter):
     DesiredD = 100 #The number of English speaking Republicans desired
 
     dict = enchant.Dict("en_US")
-    #twitter = auth()
 
     lineslist = [] #list for all the lines in the txt file
     wordslist = [] #list for all the words in the txt file
@@ -43,7 +42,7 @@ def statuses(twitter):
 
         lineslist[:] = []
         wordslist[:] = []
-
+        print "before"
         try:
             user_timeline = twitter.get_user_timeline(id=str(IDs[0]), count=10)
         except TwythonError as e:
@@ -61,6 +60,7 @@ def statuses(twitter):
                         time.sleep(60)
                         continue
                     break
+        print "after"
 
 
         for tweet in user_timeline:
@@ -90,7 +90,7 @@ def statuses(twitter):
             elif party == "R":
                 Rcount += 1
 
-        con.commit()
+    con.commit()
     con.close()
 
 

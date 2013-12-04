@@ -24,7 +24,7 @@ def SpellChecker():
 
     while StopOuterLoop != 1:
 
-        cur.execute("select statuses.statuses from statuses,final_users_en where statuses.id = final_users_en.users_id and final_users_en.party = ?", (party,)) #get statuses from 1000 D and 1000 R
+        cur.execute("select statuses.statuses from statuses,final_users_en where statuses.users_id = final_users_en.users_id and final_users_en.party = ?", (party,)) #get statuses from 1000 D and 1000 R
 
         while True:
 
@@ -32,6 +32,7 @@ def SpellChecker():
             wordslist[:] = []
 
             row = cur.fetchone()
+            print row
             #
             #if row == None:
             #    if party == "D":

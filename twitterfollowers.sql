@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS users_following_count;
 DROP TABLE IF EXISTS statuses;
 DROP TABLE IF EXISTS final_users;
 DROP TABLE IF EXISTS results;
+DROP TABLE IF EXISTS final_users_en;
 
 
 
@@ -70,12 +71,7 @@ CREATE TABLE results(
 	incorrect integer
 );
 
-/*
-SELECT twitter_id
-FROM users_following
-GROUP BY twitter_id
-HAVING COUNT(twitter_id) >= 1 AND party = 'D'
-*/
+
 	
 
 .separator ","

@@ -35,8 +35,8 @@ keys = [(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET), (APP_KEY2, APP_S
         (APP_KEY5, APP_SECRET5, OAUTH_TOKEN5, OAUTH_TOKEN_SECRET5)]
 
 def auth():
-    twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN
-        , OAUTH_TOKEN_SECRET)
+    twitter = Twython(APP_KEY5, APP_SECRET5, OAUTH_TOKEN5
+        , OAUTH_TOKEN_SECRET5)
     return twitter
 
 
