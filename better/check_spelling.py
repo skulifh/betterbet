@@ -21,10 +21,13 @@ def spell_checker():
     r_correct_counter = 0
     r_incorrect_counter = 0
 
+    d_count = 0
+    r_count = 0
 
     cur.execute("select distinct(statuses.statuses), final_users_en.party from statuses,final_users_en where statuses.users_id = final_users_en.users_id and statuses.id < 10") #get statuses from 1000 D and 1000 R
 
     while True:
+
         lines_list[:] = []
         words_list[:] = []
         row = cur.fetchone()
@@ -34,16 +37,25 @@ def spell_checker():
 
         status = row[0]
         party = row[1]
-        lines_list.append(status)
+
+        if party == "D":
+            d_count += 1
+        elif party == "R":
+            r_count += 1
+
+     #   lines_list.append(status)
         print "STATUS: " + str(status)
 
-        for i in range(len(lines_list)): #loop through all the lines in the list
-            words = lines_list[i].split() #acquire all the words in the line in a list
+        #for i in range(len(lines_list)): #loop through all the lines in the list
+        #    words = lines_list[i].split() #acquire all the words in the line in a list
+        #
+        #    for j in range(len(words)): #loop through the word list to add them to another list
+        #        if words[j].find("...") <= 0:
+        #            words_list.append(words[j])
 
-            for j in range(len(words)): #loop through the word list to add them to another list
-                if words[j].find("...") <= 0:
-                    words_list.append(words[j])
-
+        words = status.split()
+        for word in words:
+            words_list.append(word)
 
         for k in range(len(words_list)-1):
             print "\n"
