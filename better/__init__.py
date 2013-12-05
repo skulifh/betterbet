@@ -29,7 +29,7 @@ logging.getLogger('').addHandler(console)
 
 logging.info('Starting')
 
-# set the wtitter authentication
+# set the twitter authentication
 twitter = auth()
 
 # put all the users into table
@@ -41,13 +41,10 @@ twitter = auth()
 # check the status of all the users
 #statuses(twitter)
 
-spell_checker()
+#spell_checker()
 
 logging.info('Finished')
 
 
 #followids1 = twitter.get_followers_ids(screen_name='HillaryClinton')
 #response = twitter.get_followers_ids(screen_name = "HillaryClinton")
-
-
-

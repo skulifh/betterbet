@@ -55,7 +55,6 @@ def spell_checker():
             if spell_check == "True":
                 if party == "D":
                     d_correct_counter += 1
-                    print "HO HO LOLOL"
                 elif party == "R":
                     r_correct_counter += 1
             elif spell_check == "False":
