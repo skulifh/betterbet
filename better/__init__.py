@@ -1,11 +1,11 @@
 __author__ = 'skuli'
 from twython import Twython, TwythonError
-from CheckSpelling import SpellChecker
+from better.CheckSpelling import SpellChecker
 import sqlite3 as lite
 import logging
-from users import putUsersInTable, sortUsers
-from authentication import auth
-from statuses import statuses
+from better.users import putUsersInTable, sortUsers
+from better.authentication import auth
+from better.statuses import statuses
 
 # set up logging to file - see previous section for more details
 logging.basicConfig(level=logging.INFO,
