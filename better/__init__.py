@@ -1,11 +1,11 @@
 __author__ = 'skuli'
 from twython import Twython, TwythonError
-from better.check_spelling import spell_checker
+from check_spelling import spell_checker
 import sqlite3 as lite
 import logging
-from better.users import put_users_in_table, sort_users
-from better.authentication import auth
-from better.statuses import statuses
+from users import put_users_in_table, sort_users
+from authentication import auth
+from statuses import statuses
 
 # set up logging to file - see previous section for more details
 logging.basicConfig(level=logging.INFO,
@@ -41,7 +41,7 @@ twitter = auth()
 # check the status of all the users
 #statuses(twitter)
 
-#spell_checker()
+spell_checker()
 
 logging.info('Finished')
 
