@@ -1,7 +1,6 @@
 __author__ = 'skuli'
 from twython import Twython, TwythonError
 from check_spelling import spell_checker
-import sqlite3 as lite
 import logging
 from users import put_users_in_table, sort_users
 from authentication import auth
@@ -36,12 +35,12 @@ twitter = auth()
 #put_users_in_table(twitter)
 
 # sort all of the users
-#sort_users(2, 1)
+#sort_users(9, 3)
 
 # check the status of all the users
-#statuses(twitter)
+statuses(twitter)
 
-spell_checker()
+#spell_checker()
 
 logging.info('Finished')
 

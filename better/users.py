@@ -74,18 +74,6 @@ def put_users_in_table(twitter):
         while twittercursor:
             twittercursor = response["next_cursor"]
 
-            #for x in response["ids"]:
-            #    cur.execute("SELECT id FROM users WHERE twitter_id = " + str(x))
-            #    print str(x)
-            #    userid = cur.fetchall()
-            #    if not userid:
-            #        cur.execute("INSERT INTO users(twitter_id) VALUES(" + str(x) + ")")
-            #        cur.execute("SELECT id FROM users WHERE twitter_id = " + str(x))
-            #        userid = cur.fetchall()
-            #        cur.execute("insert into users_following_politicians (users_id, politicians_id) values (?, ?)",(str(userid[0][0]), str(i[0])))
-            #    else:
-            #        cur.execute("insert into users_following_politicians (users_id, politicians_id) values (?, ?)",(str(userid[0][0]), str(i[0])))
-
             for twitter_id in response["ids"]:
                 cur.execute("insert into users_following_politicians (twitter_id, politicians_id, party) values (?, ?, ?)",(str(twitter_id), str(i[0]), str(i[3])))
 
