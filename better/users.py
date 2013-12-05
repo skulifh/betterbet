@@ -1,13 +1,13 @@
+""" docstring, write something here! """
 __author__ = 'skuli'
 
-from twython import Twython, TwythonError
 import sqlite3 as lite
 import time
 import logging
-from authentication import auth
 
 
-def hugeSqlCommand(minFriendlyFollowing, maxOpponentFollowing, Friendlyparty, OpponentParty):
+def huge_sql_command(min_friendly_following, max_opponent_following, friendly_party, opponent_party):
+    """ docstring, write something here! """
     con = None
     con = lite.connect('../test.db')
     cur = con.cursor()
@@ -17,34 +17,36 @@ def hugeSqlCommand(minFriendlyFollowing, maxOpponentFollowing, Friendlyparty, Op
                 "FROM users_following_politicians "
                 "INNER JOIN politicians "
                 "ON users_following_politicians.politicians_id = politicians.id "
-                "WHERE politicians.party = '" + Friendlyparty + "' "
+                "WHERE politicians.party = '" + friendly_party + "' "
                 "GROUP BY users_following_politicians.twitter_id "
-                "HAVING (COUNT(users_following_politicians.twitter_id) >= " + str(minFriendlyFollowing) + ") "
+                "HAVING (COUNT(users_following_politicians.twitter_id) >= " + str(min_friendly_following) + ") "
                 "INTERSECT "
                 "SELECT users_following_politicians.twitter_id "
                 "FROM users_following_politicians "
                 "INNER JOIN politicians "
                 "ON users_following_politicians.politicians_id = politicians.id "
-                "WHERE politicians.party = '" + OpponentParty + "' "
+                "WHERE politicians.party = '" + opponent_party + "' "
                 "GROUP BY users_following_politicians.twitter_id "
-                "HAVING (COUNT(users_following_politicians.twitter_id) <= " + str(maxOpponentFollowing) + ");")
+                "HAVING (COUNT(users_following_politicians.twitter_id) <= " + str(max_opponent_following) + ");")
 
     users = cur.fetchall()
     cur2 = con.cursor()
 
-    for u in users:
-        cur2.execute("insert into final_users (users_id, party) values (?, ?)",(u[0], Friendlyparty))
+    for user in users:
+        cur2.execute("insert into final_users (users_id, party) values (?, ?)",(user[0], friendly_party))
 
     con.commit()
 
 
-def sortUsers(minFriendlyFollowing, maxOpponentFollowing):
+def sort_users(min_friendly_following, max_opponent_following):
+    """ docstring, write something here! """
 
-    hugeSqlCommand(minFriendlyFollowing, maxOpponentFollowing, 'R', 'D')
-    hugeSqlCommand(minFriendlyFollowing, maxOpponentFollowing, 'D', 'R')
+    huge_sql_command(min_friendly_following, max_opponent_following, 'R', 'D')
+    huge_sql_command(min_friendly_following, max_opponent_following, 'D', 'R')
 
 
-def putUsersInTable(twitter):
+def put_users_in_table(twitter):
+    """ docstring, write something here! """
     con = None
     con = lite.connect('../test.db')
     cur = con.cursor()
@@ -84,13 +86,13 @@ def putUsersInTable(twitter):
             #    else:
             #        cur.execute("insert into users_following_politicians (users_id, politicians_id) values (?, ?)",(str(userid[0][0]), str(i[0])))
 
-            for x in response["ids"]:
-                cur.execute("insert into users_following_politicians (twitter_id, politicians_id, party) values (?, ?, ?)",(str(x), str(i[0]), str(i[3])))
+            for twitter_id in response["ids"]:
+                cur.execute("insert into users_following_politicians (twitter_id, politicians_id, party) values (?, ?, ?)",(str(twitter_id), str(i[0]), str(i[3])))
 
             con.commit()
             while True:
                 try:
-                    response = twitter.get_followers_ids(screen_name = i[2],cursor = twittercursor)
+                    response = twitter.get_followers_ids(screen_name = i[2], cursor = twittercursor)
                     logging.info('retry successful!')
                 except:
                     logging.info('retrying...')
@@ -101,11 +103,11 @@ def putUsersInTable(twitter):
         con.commit()
 
     cur.execute("SELECT DISTINCT twitter_id FROM users_following_politicians")
-    userid = cur.fetchall()
+    users_id = cur.fetchall()
     cur = con.cursor()
 
-    for y in userid:
-        cur.execute("insert into users (id) values (?)",(str(y[0]),))
+    for user_id in users_id:
+        cur.execute("insert into users (id) values (?)",(str(user_id[0]),))
 
     con.commit()
 

@@ -35,14 +35,14 @@ keys = [(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET), (APP_KEY2, APP_S
         (APP_KEY5, APP_SECRET5, OAUTH_TOKEN5, OAUTH_TOKEN_SECRET5)]
 
 def auth():
-    twitter = Twython(APP_KEY5, APP_SECRET5, OAUTH_TOKEN5
-        , OAUTH_TOKEN_SECRET5)
+    twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN
+        , OAUTH_TOKEN_SECRET)
     return twitter
 
 
 class Authenticator:
     def __init__(self):
-        self.key = 0;
+        self.key = 0
         self.auth_APP_KEY = keys[self.key][0]
         self.auth_APP_SECRET = keys[self.key][1]
         self.auth_OAUTH_TOKEN = keys[self.key][2]
@@ -63,6 +63,6 @@ class Authenticator:
             self.auth_APP_KEY = keys[self.key][0]
             self.auth_APP_SECRET = keys[self.key][1]
             self.auth_OAUTH_TOKEN = keys[self.key][2]
-            selfauth_OAUTH_TOKEN_SECRET = keys[self.key][3]
+            self.auth_OAUTH_TOKEN_SECRET = keys[self.key][3]
 
         self.twython = Twython(self.auth_APP_KEY, self.auth_APP_SECRET, self.auth_OAUTH_TOKEN, self.auth_OAUTH_TOKEN_SECRET)
