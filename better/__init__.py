@@ -33,13 +33,13 @@ logging.info('Starting')
 twitter = auth()
 
 # put all the users into table
-#putUsersInTable(twitter)
+putUsersInTable(twitter)
 
 # sort all of the users
-#sortUsers(2, 1)
+sortUsers(2, 1)
 
 # check the status of all the users
-#statuses(twitter)
+statuses(twitter)
 
 SpellChecker()
 
