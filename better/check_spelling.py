@@ -1,11 +1,12 @@
-""" docstring, enter some text here! """
+""" Contains spell_checker() function """
 __author__ = 'Asgeir'
 import sqlite3 as lite
 import enchant
 
 
 def spell_checker():
-    """ docstring, enter some text here! """
+    """ Checks how many correct and incorrect words are found for every
+    democrat and republicans in the table"""
 
     dict_use = enchant.Dict("en_US")
     con = None

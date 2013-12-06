@@ -32,15 +32,15 @@ logging.info('Starting')
 twitter = auth()
 
 # put all the users into table
-#put_users_in_table(twitter)
+put_users_in_table(twitter)
 
 # sort all of the users
-#sort_users(9, 3)
+sort_users(9, 3)
 
 # check the status of all the users
 statuses(twitter)
 
-#spell_checker()
+spell_checker()
 
 logging.info('Finished')
 

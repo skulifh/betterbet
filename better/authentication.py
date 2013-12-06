@@ -1,4 +1,4 @@
-""" docstring, enter some text here! """
+""" contains the auth() function as well as 5 twitter_dev informations """
 __author__ = 'skuli'
 from twython import Twython
 
@@ -33,6 +33,8 @@ OAUTH_TOKEN_SECRET5 = '0iKZRFhiOTlmUOoFPgHGPNNtsPmsO4VMbQc212FrBlQ3b'
 
 
 def auth():
+    """ Authorises the twitter_dev account and project in order to use
+    the twitter api"""
     twitter = Twython(APP_KEY5, APP_SECRET5, OAUTH_TOKEN5
         , OAUTH_TOKEN_SECRET5)
     return twitter

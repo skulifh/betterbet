@@ -1,4 +1,4 @@
-""" docstring, write something here! """
+""" has the function huge_sql_command, sort_users and put_users_in_table """
 __author__ = 'skuli'
 
 import sqlite3 as lite
@@ -7,7 +7,7 @@ import logging
 
 
 def huge_sql_command(min_friendly_following, max_opponent_following, friendly_party, opponent_party):
-    """ docstring, write something here! """
+    """ Runs one SQL command. Is in a special function due to being run more than once """
     con = None
     con = lite.connect('../test.db')
     cur = con.cursor()
@@ -39,14 +39,15 @@ def huge_sql_command(min_friendly_following, max_opponent_following, friendly_pa
 
 
 def sort_users(min_friendly_following, max_opponent_following):
-    """ docstring, write something here! """
+    """ Sort the users into eithere Democrats or Republicans """
 
     huge_sql_command(min_friendly_following, max_opponent_following, 'R', 'D')
     huge_sql_command(min_friendly_following, max_opponent_following, 'D', 'R')
 
 
 def put_users_in_table(twitter):
-    """ docstring, write something here! """
+    """ Gathers users from twitter who are following the politicians
+     in the politicians database and puts them in the speciffic table"""
     con = None
     con = lite.connect('../test.db')
     cur = con.cursor()

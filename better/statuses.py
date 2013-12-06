@@ -8,7 +8,9 @@ import time
 import re
 
 def statuses(twitter):
-    """ """
+    """ Takes a certain number of english speaking, predefined democrats
+    and republicans and puts them into a table"""
+
     desired_r = 500 #The number of English speaking Democrats desired
     desired_d = 500 #The number of English speaking Republicans desired
 
@@ -97,7 +99,7 @@ def statuses(twitter):
     con.close()
  
 def clean_status(status):
-    """ docstring, enter some text here! """
+    """ Cleans a string from certain symbols and letters """
 
     status = re.sub(r'@\w+\s?', '', status) #Removes words that start with "@", i.e. the usernames
     status = re.sub(r'#\w+\s?', '', status) #Removes words that start with "#", i.e. hashtags
